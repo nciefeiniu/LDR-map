@@ -1,15 +1,15 @@
 <script>
+import {mapMutations} from 'vuex'
+
 export default {
     created() {
-        // 调用API从本地缓存中获取数据
-        const logs = wx.getStorageSync('logs') || []
-        logs.unshift(Date.now())
-        wx.setStorageSync('logs', logs)
-
-        console.log('app created and cache logs by setStorageSync')
+        console.log('获取手机屏幕数据')
+        this.changeSys()
     },
-    onLoad() {
-      this.store.commit('changeSys')
+    methods: {
+        ...mapMutations([
+            'changeSys'
+        ])
     }
 }
 </script>

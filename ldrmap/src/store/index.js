@@ -8,7 +8,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     count: 0,
-    windowsWeight: 375,
+    windowsWidth: 375,
     windowsHeight: 667
   },
   mutations: {
@@ -21,18 +21,16 @@ const store = new Vuex.Store({
       obj.count -= 1
     },
     changeSys: (state) => {
+      console.log('vuex')
       const obj = state
-      let width = 375
-      let height = 667
-      wx.getSystemInfoSync({
-        success: function (res) {
-          width = res.windowWidth;
-          height = res.windowHeight;
-          that.store.changeSys()
-        }
-      })
-      obj.windowsWeight = weight
-      obj.windowsHeight = height
+      try {
+        const res = wx.getSystemInfoSync()
+        console.log('获取手机屏幕成功', res)
+        obj.windowsWidth = res.windowWidth
+        obj.windowsHeight = res.windowHeight
+      } catch (err) {
+        console.log('vuex error:', err)
+      }
     }
   }
 })
